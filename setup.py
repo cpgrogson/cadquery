@@ -44,11 +44,9 @@ setup(
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Topic :: Scientific/Engineering',],
-    keywords='3dric OCCT OpenCASCADE modeling solid',
-    packages=find_',    python_requires='>=3.8',
-    install_requires=[
-        'OCP',          # Python bindings for OpenCASCADE
-        'typish',
+    # Fixedpo: '3dric' -> '3d in keywords
+    keywords='3d_packages(),equires=[
+        'OCPtypish',
         'nptyping',
         'pyparsing',
         'typing_extensions',
