@@ -44,16 +44,12 @@ setup(
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Topic :: Scientific/Engineering',],
-    # Fixedpo: '3dric' -> '3d in keywords
-    keywords='3d_packages(),equires=[
-        'OCPtypish',
-        'nptyping',
-        'pyparsing',
-        'typing_extensions',
-    ],
-    extras_require={
-        'dev': [
-            'pytest',
+    keywords='3d cad camric scripting occt',
+    packages=find_packages(),
+    _requires=[
+        'OCP',
+        'nptyping',_require={
+        'dev
             'pytest-cov',
             'black',
             'flake8',
