@@ -8,6 +8,10 @@ Basic usage::
     import cadquery as cq
 
     result = cq.Workplane("XY").box(10, 10, 10)
+
+Useful references:
+    - Docs: https://cadquery.readthedocs.io
+    - Selectors cheat sheet: https://cadquery.readthedocs.io/en/latest/selectors.html
 """
 
 from .cq import (
