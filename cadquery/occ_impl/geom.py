@@ -40,7 +40,8 @@ class Vector:
             else:
                 raise TypeError(f"Cannot construct Vector from {type(args[0])!r}")
         elif len(args) == 2:
-            self._wrapped = gp_Vec(args[0], 0, args[1])
+            # 2-arg form: treat as (x, y) in the XY plane, z=0
+            self._wrapped = gp_Vec(args[0], args[1], 0)
         else:
             raise TypeError(f"Vector expects 1, 2, or 3 arguments, got {len(args)}")
 
@@ -101,6 +102,4 @@ class Vector:
     def toTuple(self) -> Tuple[float, float, float]:
         return (self.x, self.y, self.z)
 
-    def getAngle(self, other: "Vector") -> float:
-        """Angle in radians between this vector and another."""
-        return self._wrapped.Angle(other._wrapped)
+    def getAngle(self, ot
