@@ -12,6 +12,8 @@ Basic usage::
 Useful references:
     - Docs: https://cadquery.readthedocs.io
     - Selectors cheat sheet: https://cadquery.readthedocs.io/en/latest/selectors.html
+    - GitHub: https://github.com/CadQuery/cadquery
+    - Examples: https://github.com/CadQuery/cadquery/tree/master/examples
 """
 
 from .cq import (
