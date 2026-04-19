@@ -43,15 +43,12 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
-        'Topic :: Scientific/Engineering',],
-    keywords='3d cad parametric scripting occt',
-_requires=[
-        'O],
-    extras': [
-            'pytest',n            'flake8',
-            'mypy',
-            'sphinx',
-            'sphinx-rtd-theme',
+        'Topic :: Scientific/Engineering',
+    ],
+    keywords='[
+        'OCP',],
+    extras_require=': [
+            'pytest','sphinx-rtd-theme',
         ],
         'ipython': [
             'jupyter',
@@ -63,6 +60,7 @@ _requires=[
             'cq-editor=cadquery.cq_editor:main',
         ],
     },
+    packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
 )
