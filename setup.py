@@ -44,15 +44,11 @@ setup(
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Topic :: Scientific/Engineering',],
-    keywords='3d cad camric scripting occt',
-    packages=find_packages(),
-    _requires=[
-        'OCP',
-        'nptyping',_require={
-        'dev
-            'pytest-cov',
-            'black',
-            'flake8',
+    keywords='3d cad parametric scripting occt',
+_requires=[
+        'O],
+    extras': [
+            'pytest',n            'flake8',
             'mypy',
             'sphinx',
             'sphinx-rtd-theme',
