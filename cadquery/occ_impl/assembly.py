@@ -40,8 +40,11 @@ class Assembly:
             shape: Optional root shape for this assembly node.
             name: Optional name for this assembly.
             loc: Optional translation vector for this assembly node.
+                 Defaults to origin (0, 0, 0).
         """
-        self.name = name or "Assembly"
+        # Default name falls back to "root" to make it clearer this is a
+        # top-level node when no explicit name is provided.
+        self.name = name or "root"
         self.shape = shape
         self.loc = loc or Vector(0, 0, 0)
         self.children: List[Tuple["Assembly", str]] = []
@@ -98,33 +101,4 @@ class Assembly:
         self,
         builder: BRep_Builder,
         compound: TopoDS_Compound,
-        parent_loc: Vector,
-    ) -> None:
-        """Recursively add shapes to the compound with cumulative transforms."""
-        # Compute cumulative translation
-        combined_loc = Vector(
-            parent_loc.x + self.loc.x,
-            parent_loc.y + self.loc.y,
-            parent_loc.z + self.loc.z,
-        )
-
-        if self.shape is not None and not self.shape.is_null():
-            # Apply location transform to the shape
-            trsf = gp_Trsf()
-            trsf.SetTranslation(
-                combined_loc.toPnt().XYZ() if hasattr(combined_loc, "toPnt")
-                else combined_loc.wrapped.XYZ()
-            )
-            loc = TopLoc_Location(trsf)
-            moved = self.shape.wrapped.Moved(loc)
-            builder.Add(compound, moved)
-
-        for child, _ in self.children:
-            child._addToCompound(builder, compound, combined_loc)
-
-    def __repr__(self) -> str:
-        return (
-            f"Assembly(name={self.name!r}, "
-            f"children={len(self.children)}, "
-            f"loc={self.loc})"
-        )
+        parent_loc: V
