@@ -70,7 +70,12 @@ class Shape:
         return props.Mass()
 
     def center_of_mass(self) -> Vector:
-        """Return the center of mass of the shape."""
+        """Return the center of mass of the shape.
+
+        Note: uses VolumeProperties internally, so results for non-solid
+        shapes (e.g. faces, shells) may not be meaningful. Consider using
+        brepgprop_SurfaceProperties for shell-like shapes instead.
+        """
         props = GProp_GProps()
         brepgprop_VolumeProperties(self._shape, props)
         c = props.CentreOfMass()
@@ -92,76 +97,4 @@ class Shape:
         """Boolean intersection of this shape with another."""
         common_op = BRepAlgoAPI_Common(self._shape, other._shape)
         common_op.Build()
-        return Shape(common_op.Shape())
-
-    def __repr__(self) -> str:
-        return f"<Shape: {type(self._shape).__name__}>"
-
-
-class Solid(Shape):
-    """Represents a 3D solid body."""
-
-    @classmethod
-    def make_box(
-        cls,
-        length: float,
-        width: float,
-        height: float,
-        pnt: Optional[Vector] = None,
-    ) -> "Solid":
-        """Create an axis-aligned box.
-
-        Args:
-            length: Dimension along X axis.
-            width: Dimension along Y axis.
-            height: Dimension along Z axis.
-            pnt: Optional origin point (default: origin).
-        """
-        origin = pnt if pnt is not None else Vector(0, 0, 0)
-        box = BRepPrimAPI_MakeBox(
-            gp_Pnt(origin.x, origin.y, origin.z), length, width, height
-        )
-        return cls(box.Shape())
-
-    @classmethod
-    def make_cylinder(
-        cls,
-        radius: float,
-        height: float,
-        pnt: Optional[Vector] = None,
-        direction: Optional[Vector] = None,
-    ) -> "Solid":
-        """Create a cylinder along a given axis.
-
-        Args:
-            radius: Radius of the cylinder.
-            height: Height of the cylinder.
-            pnt: Base center point (default: origin).
-            direction: Axis direction (default: Z axis).
-        """
-        origin = pnt if pnt is not None else Vector(0, 0, 0)
-        axis_dir = direction if direction is not None else Vector(0, 0, 1)
-        ax2 = gp_Ax2(
-            gp_Pnt(origin.x, origin.y, origin.z),
-            gp_Dir(axis_dir.x, axis_dir.y, axis_dir.z),
-        )
-        cyl = BRepPrimAPI_MakeCylinder(ax2, radius, height)
-        return cls(cyl.Shape())
-
-    @classmethod
-    def make_sphere(
-        cls,
-        radius: float,
-        pnt: Optional[Vector] = None,
-    ) -> "Solid":
-        """Create a sphere centered at a given point.
-
-        Args:
-            radius: Radius of the sphere.
-            pnt: Center point (default: origin).
-        """
-        origin = pnt if pnt is not None else Vector(0, 0, 0)
-        sphere = BRepPrimAPI_MakeSphere(
-            gp_Pnt(origin.x, origin.y, origin.z), radius
-        )
-        return cls(sphere.Shape())
+        return Shape(common_op.Sh
