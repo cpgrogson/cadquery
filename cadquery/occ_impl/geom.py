@@ -86,7 +86,8 @@ class Vector:
         return Vector(self._wrapped.Reversed())
 
     def __repr__(self) -> str:
-        return f"Vector({self.x}, {self.y}, {self.z})"
+        # Round to 6 decimal places for cleaner output when printing vectors
+        return f"Vector({self.x:.6g}, {self.y:.6g}, {self.z:.6g})"
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, Vector):
@@ -101,5 +102,3 @@ class Vector:
 
     def toTuple(self) -> Tuple[float, float, float]:
         return (self.x, self.y, self.z)
-
-    def getAngle(self, ot
