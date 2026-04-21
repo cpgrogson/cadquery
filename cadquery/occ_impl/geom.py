@@ -98,7 +98,6 @@ class Vector:
         return gp_Pnt(self._wrapped.XYZ())
 
     def toDir(self) -> gp_Dir:
+        # Raises Standard_ConstructionError if the vector has zero magnitude.
+        # Caller is responsible for ensuring the vector is non-zero before calling.
         return gp_Dir(self._wrapped)
-
-    def toTuple(self) -> Tuple[float, float, float]:
-        return (self.x, self.y, self.z)
